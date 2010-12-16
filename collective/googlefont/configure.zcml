@@ -1,0 +1,28 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="collective.googlefont">
+
+  <five:registerPackage package="." initialize=".initialize" />
+
+  <genericsetup:registerProfile
+      name="default"
+      title="collective.googlefont"
+      directory="profiles/default"
+      description="Installs the collective.googlefont package"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+  <!-- -*- extra stuff goes here -*- -->
+  <adapter factory=".controlpanel.GoogleFontAdapter" />
+  
+   <browser:page
+       name="googlefont-controlpanel"
+       for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+       class=".controlpanel.GoogleFontControlPanel"
+       permission="cmf.ManagePortal"
+       />
+  
+</configure>
