@@ -8,7 +8,7 @@ class GoogleFont(BrowserView):
     def __init__(self, context, request):
         self.context = context
         self.request = request
-        self.configuration = interfaces.IGooleFont(context)
+        self.configuration = interfaces.IGoogleFont(context)
     
     @property
     def wefontconfig(self):
@@ -19,8 +19,8 @@ class GoogleFont(BrowserView):
         return self.configuration.cssfonturl
     
     def css(self):
-        return ""
+        return self.configuration.css()
     
     def javascript(self):
-        return ""
+        return self.configiration.javascript()
     

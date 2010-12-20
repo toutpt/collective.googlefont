@@ -17,6 +17,7 @@
       />
   <!-- -*- extra stuff goes here -*- -->
   <adapter factory=".controlpanel.GoogleFontAdapter" />
+  <adapter for="*" factory="collective.googlefont.GoogleFont" />
   
    <browser:page
        name="googlefont-controlpanel"
@@ -24,5 +25,18 @@
        class=".controlpanel.GoogleFontControlPanel"
        permission="cmf.ManagePortal"
        />
+   <browser:pages
+       for="*"
+       class=".browser.GoogleFont"
+       permission="zope2.View">
+       <browser:page
+         name="googlefont.css"
+         attribute="css"
+       />
+       <browser:page
+         name="googlefont.js"
+         attribute="javascript"
+       />
+   </browser:pages>
   
 </configure>

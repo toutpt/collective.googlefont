@@ -1,3 +1,4 @@
+import urllib2
 from plone.app.controlpanel.form import ControlPanelForm
 from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.interfaces import IPropertiesTool
@@ -10,7 +11,7 @@ from zope.i18nmessageid import MessageFactory
 from zope.interface import implements
 
 from collective.googlefont import interfaces
-from collective.googlefont import messageFactory as _
+from collective.googlefont.i18n import messageFactory as _
 
 font_iface = interfaces.IGoogleFont
 
@@ -24,9 +25,12 @@ class GoogleFontAdapter(SchemaAdapterBase):
 
     webfontconfig = ProxyFieldProperty(font_iface['webfontconfig'])
     cssfonturl = ProxyFieldProperty(font_iface['cssfonturl'])
+    activated = ProxyFieldProperty(font_iface['activated'])
 
     def css(self):
-        return ""
+        """fecth the cssfonturl and store the results"""
+        css = urllib2.urlopen(self.cssfonturl)
+        return css.read()
     
     def javascript(self):
         return ""
@@ -38,9 +42,13 @@ class GoogleFontControlPanel(ControlPanelForm):
     form_name = _(u'Google Font')
 
     def _on_save(self, data=None):
+        if not self.validate():
+            return
         jsregistry = getToolByName(self.context,
                                    'portal_javascripts')
         cssregistry = getToolByName(self.context,
                                    'portal_css')
         jsregistry.cookResources()
         cssregistry.cookResources()
+
+    def validate(self, data):

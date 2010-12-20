@@ -1,6 +1,6 @@
 from zope import interface
 from zope import schema
-from collective.googlefont import messageFactory as _
+from collective.googlefont.i18n import messageFactory as _
 
 class IGoogleFont(interface.Interface):
     """Configuration to use the service
@@ -16,6 +16,8 @@ class IGoogleFont(interface.Interface):
                                           default=u'Add here a css url'),
                               description=_(u"help_extracss", default=u''),
                               required=False)
+    
+    activated = schema.Boolean(title=_(u"label_activated"))
     
     def javascript():
         """Return the javascript code to include in pages"""

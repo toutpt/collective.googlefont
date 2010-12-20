@@ -25,6 +25,7 @@ setup(name='collective.googlefont',
       zip_safe=False,
       install_requires=[
           'setuptools',
+          'collective.googlelibraries'
           # -*- Extra requirements: -*-
       ],
       entry_points="""
